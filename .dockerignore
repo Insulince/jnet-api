@@ -1,0 +1,11 @@
+.git/
+.idea/
+.run/
+bin/
+vendor/
+.dockerignore
+.gitignore
+Dockerfile
+Makefile
+README.md
+*.iml
