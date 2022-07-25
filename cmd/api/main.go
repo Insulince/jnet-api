@@ -8,6 +8,7 @@ import (
 	"github.com/Insulince/jnet-api/untitled/cmd/api/rest"
 	"github.com/Insulince/jnet-api/untitled/cmd/api/service"
 	trainingexecutor "github.com/Insulince/jnet-api/untitled/cmd/api/training-executor"
+	"github.com/Insulince/jnet-api/untitled/cmd/config"
 	"github.com/Insulince/jnet/pkg/network"
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
@@ -42,10 +43,15 @@ func Run() error {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
+	cfg, err := config.GetConfig()
+	if err != nil {
+		return errors.Wrap(err, "getting config")
+	}
+
 	errs := make(chan error)
 
 	fmt.Println("connecting to mongo server")
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(cfg.MongoConnectionString))
 	if err != nil {
 		return errors.Wrap(err, "connecting to mongo server")
 	}
