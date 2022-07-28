@@ -52,6 +52,8 @@ func NewRouter(s service.Service, wsUpgrader websocket.Upgrader) *mux.Router {
 	// HEALTH CHECK
 	r.HandleFunc("/health", healthCheck(s)).Methods(http.MethodGet)
 
+	r.Use(headerMiddleware)
+
 	return r
 }
 
@@ -62,6 +64,13 @@ func healthCheck(_ service.Service) http.HandlerFunc {
 		respond(w, http.StatusOK, http.StatusText(http.StatusOK))
 		return
 	}
+}
+
+func headerMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Expose-Headers", "Location")
+		next.ServeHTTP(w, r)
+	})
 }
 
 func respondError(w http.ResponseWriter, status int, err error) {
