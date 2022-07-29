@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="jnet-api:run-and-wails" type="Multirun" separateTabs="false" reuseTabsWithFailures="false" startOneByOne="false" markFailedProcess="true" hideSuccessProcess="false" delayTime="0.0">
+    <runConfiguration name="jnet-api:run" type="Go Build" />
+    <runConfiguration name="jnet-api:wails" type="Shell Script" />
+    <method v="2" />
+  </configuration>
+</component>
