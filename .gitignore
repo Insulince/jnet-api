@@ -1,4 +1,8 @@
 .idea/
 vendor/
-bin/
+bin/*
+!bin/.gitkeep
+build/bin/
 *.iml
+.DS_Store
+Thumbs.db
